@@ -1,11 +1,10 @@
 import React from 'react';
 import SearchEmployees from '../containers/SearchEmployees';
-const EditEmployeeDialog = ()=>{
+const DeleteEmployeeDialog = ()=>{
     return(
         <div className = "container">
-            <SearchEmployees urlType = "edit-employee"/> 
+            <SearchEmployees urlType = "delete-employee"/>
         </div>
     );
 }
-
-export default EditEmployeeDialog;
+export default DeleteEmployeeDialog;

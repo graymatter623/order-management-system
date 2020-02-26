@@ -1,9 +1,11 @@
 import {put,takeLatest,takeEvery,all} from 'redux-saga/effects';
 import {
     REQUEST_LOGIN,
-    responseLoginSuccess,
     REQUEST_EMPLOYEES_DATA,
-    responseEmployeesDataSuccess
+    REQUEST_TODAY_ORDER,
+    responseLoginSuccess,
+    responseEmployeesDataSuccess,
+    responseTodayOrdersSuccess
 } from '../actions/actions';
 import axios from 'axios';
 
@@ -24,6 +26,18 @@ function* fetchEmployeeData(){
         .then(response => response);
     yield put(responseEmployeesDataSuccess(response.data));        
 }
+function* fetchTodayOrders(){
+    const response = yield axios.get('http://localhost:5000/get-today-orders',{
+        headers : {
+            "Authorization" : `Bearer ${token}`,
+            "Accept" : "application/json"
+        }
+    }).then(response =>response);
+    yield put(responseTodayOrdersSuccess(response.data));
+}
+function* watchFetchTodayOrders(){
+    yield takeEvery(REQUEST_TODAY_ORDER,fetchTodayOrders);
+}
 function* watchFetchEmployeeData(){
     yield takeEvery(REQUEST_EMPLOYEES_DATA,fetchEmployeeData);
 }
@@ -33,7 +47,8 @@ function* watchFetchLoginDetails(){
 function* rootSaga(){
     yield all([
        watchFetchLoginDetails(),
-       watchFetchEmployeeData()
+       watchFetchEmployeeData(),
+       watchFetchTodayOrders()
     ]);
 }
 export default rootSaga;

@@ -12,14 +12,15 @@ import AdminDashBoard from '../containers/AdminDashBoard';
 import DashBoard from '../containers/DashBoard';
 import RegisterDialog from './RegisterDialog';
 const App = ({isLoggedIn,isOwner}) =>{
+    //const token = localStorage.getItem('token');
     // console.log(isLoggedIn);
     return (    
         <Router>
         { !isLoggedIn ? ( <div>
-                <Link to = "/login"> Login </Link> &nbsp;&nbsp;|
+                <Link to = "/login" > Login </Link> &nbsp;&nbsp;|
                 <Link to = '/register' > Register</Link>
-            </div>): ( <Redirect to = "/dashboard" />)  }
-            <Switch> 
+            </div>): (<Redirect to = "/dashboard" />)  }
+            <Switch>
                 <Route exact path = "/login" component = {Login} />
                 <Route exact path = "/register" component = {RegisterDialog} />
                 <Route exact path = "/dashboard" component = {isOwner ? AdminDashBoard : DashBoard} />

@@ -1,8 +1,6 @@
 import React from 'react';
 import Loading from './Loading';
-
 import SearchByName from './SearchByName';
-
 class SearchEmployeesDialog  extends React.Component{
     constructor(props){
         super(props);
@@ -33,7 +31,7 @@ class SearchEmployeesDialog  extends React.Component{
                     {this.props.loading ? (
                         <Loading loading = {this.props.loading} />) : 
                         this.props.employees !== undefined ?
-                        <SearchByName 
+                        <SearchByName urlType = {this.props.urlType}
                             employees = {this.state.employee } 
                         /> : null}
                 </div>

@@ -9,7 +9,7 @@ function employees(state = { employeesList : [] ,loading : false} , action){
             case RESPONSE_EMPLOYEES_DATA_SUCCESS :
                 return {
                     ...state,
-                    employeesList : [...state.employeesList , ...action.data.employee],
+                    employeesList : [...action.data.employee],
                     loading : false
                 };
         default :
