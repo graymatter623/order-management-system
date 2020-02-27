@@ -3,7 +3,7 @@ import SearchEmployees from '../containers/SearchEmployees';
 const EditEmployeeDialog = ()=>{
     return(
         <div className = "container">
-            <SearchEmployees urlType = "edit-employee"/> 
+            <SearchEmployees urlType = "edit-employee" searchByName = {true}/> 
         </div>
     );
 }

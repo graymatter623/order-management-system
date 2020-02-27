@@ -5,7 +5,11 @@ class CreateOrderDialog extends React.Component{
     constructor(props){
         super(props);
         this.state= {
-            order_title : ""
+            order_title : "",
+            order_quantity : 0,
+            orderCreatedConfirmation : false,
+            createdAt : 0,
+            orderDate : ""
         };
     }
     handleChange = (event)=>{
@@ -13,13 +17,34 @@ class CreateOrderDialog extends React.Component{
             [event.target.name] : event.target.value
         });
     }
-    handleClick = ()=>{
-        axios.post('http://localhost:5000/create-order',this.state,{
+    onIncrement = ()=>{
+        this.setState({
+            order_quantity : this.state.order_quantity+1
+        });
+    }
+    onDecrement = ()=>{
+        this.setState({
+            order_quantity : this.state.order_quantity-1
+        });
+    }
+    handleClick = async ()=>{
+        const response = await axios.post('http://localhost:5000/create-order',{
+            order_title:this.state.order_title,
+            order_quantity:this.state.order_quantity
+        },{
             headers : {
-                "Authorization" : `Bearer ${this.props.token}`,
-                "Accept" : "application/json"
+                "Accept" : "application/json",
+                "Authorization" : `Bearer ${this.props.token}`
             }
         });
+        console.log(response.data);
+        if(response.data){
+            this.setState({
+                createdAt : response.data.order.createdAt,
+                orderCreatedConfirmation : true,
+                orderDate : response.data.order.orderDate
+            });
+        }
     }
     render(){
         return(
@@ -31,10 +56,28 @@ class CreateOrderDialog extends React.Component{
                     type = "text" 
                     name = "order_title"
                 />
+                Quantity : 
+                <div style = {{"display" : "inlineBlock"}}>
+                    <button className = "btn btn-primary my-2 mx-2" onClick = {this.onIncrement}>
+                    +
+                    </button>
+                      <span>{this.state.order_quantity}</span>
+                    <button className = "btn btn-primary my-2 mx-2" onClick = {this.onDecrement}>
+                        -
+                    </button>
+                </div>
                 <button className = "btn btn-primary my-3" onClick = {this.handleClick}>
                     Create Order
                 </button>
+                { 
+                    this.state.orderCreatedConfirmation ? 
+                    (   
+                        <div className = "container container-sm">
+                            {this.state.order_title} Order Created at {this.state.orderDate}
+                        </div>
+                    ) : null}
             </div>
+
         );
     }
 }

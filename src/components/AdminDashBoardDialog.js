@@ -9,9 +9,10 @@ import SearchEmployeesResultDialog from './SearchEmployeesResultDialog.js';
 
 import EditEmployeeDialog from './EditEmployeeDialog';
 import EditEmployeeInputsDialog from './EditEmployeeInputsDialog';
-import ShowOrders from 
+
 import CreateOrderDialog from './CreateOrderDialog';
-import ShowOrderStatus from '../containers/ShowOrderStatus';
+import ShowOrders from './ShowOrders';
+import AssignOrderToEmployee from './AssignOrderToEmployee';
 import profileImg from '../res/admin-profile-image.png';
 import homeLogo from '../res/home-logo.jpg';
 class AdminDashBoardDialog extends React.Component{
@@ -61,7 +62,7 @@ class AdminDashBoardDialog extends React.Component{
                 </nav>
                 <Switch>
                     <Route exact path = "/search-employees"
-                        children = {<SearchEmployees urlType = "search-employees"/>}
+                        children = {<SearchEmployees urlType = "search-employees" searchByName = {true}/>}
                     />
                     <Route exact path = "/search-employees/:employeeId" 
                         children = {<SearchEmployeesResultDialog />}
@@ -74,11 +75,12 @@ class AdminDashBoardDialog extends React.Component{
                     <Route exact path = "/delete-employee/:employeeId" 
                         component = {DeleteEmployeeInputsDialog}
                     />
-                    <Route exact path = "/get-orders" comonent = {}/>
                     <Route exact path = "/create-order" component = {CreateOrderDialog}/>
-                    <Route exact path = "/show-order-status" component = {ShowOrderStatus}/>
-                        {/*<Route exact path = "/assign-order-to-employee" component = {AssignOrderToEmployee}/>
-        <Route exact path = "/show-status" component = {ShowOrderStatus}/>*/}
+                    <Route exact path = "/get-orders" children = {<ShowOrders showStatus = {false} />}/>
+                    <Route exact path = "/show-status" children = {<ShowOrders urlType = "/show-status" showStatus = {true} />}/>
+                    <Route exact path = "/assign-order-to-employee" children = {<ShowOrders urlType = "/assign-order-to-employee" showStatus = {true} />}/>
+                    <Route exact path = "/assign-order-to-employee/:orderId" children = {<SearchEmployees urlType = "assigned-employee" searchByName = {false}/>}/>
+                    <Route exact path = "/assign-order-to-employee/:orderId/assigned-employee/:employeeId" component = {AssignOrderToEmployee}/>
                 </Switch>
             </div>
             </BrowserRouter>

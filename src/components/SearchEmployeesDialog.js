@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from './Loading';
 import SearchByName from './SearchByName';
+import SearchByAvailable from './SearchByAvailable';
 class SearchEmployeesDialog  extends React.Component{
     constructor(props){
         super(props);
@@ -12,28 +13,41 @@ class SearchEmployeesDialog  extends React.Component{
         this.props.requestEmployeesData();
     }
     handleInputChange = (event)=>{
-        const emp = this.props.employees.filter((emp)=> 
-            {return emp.name.toLowerCase().search(event.target.value) > -1 }
-        ) ;
-        this.setState({
-            employee : emp
-        });
+        if(this.props.searchByName){
+            const emp = this.props.employees.filter((emp)=> 
+                { return emp.name.toLowerCase().search(event.target.value) > -1 }
+            ) ;
+            this.setState({
+                employee : emp
+            });
+        } 
     }
     render(){
         return(
             <div className = "container">
-                <div className = "md-form mt-0">
-                    <input 
+                <div className = "mb-1">
+                    { this.props.searchByName && (<input 
                         className = "form-control my-2" 
                         onChange = {this.handleInputChange} 
                         type = "text" 
-                        placeholder = "Search..."/> 
+                    placeholder = "Search..."/>) }
                     {this.props.loading ? (
                         <Loading loading = {this.props.loading} />) : 
                         this.props.employees !== undefined ?
-                        <SearchByName urlType = {this.props.urlType}
-                            employees = {this.state.employee } 
-                        /> : null}
+                            (this.props.searchByName ? 
+                            (<SearchByName 
+                                urlType = {this.props.urlType}
+                                employees = {this.state.employee } 
+                            />) 
+                            : 
+                            <SearchByAvailable 
+                                orderId = {this.props.orderId}
+                                urlType = {this.props.urlType}
+                                employees = {this.props.employees }
+                            />)  
+                            : 
+                            null
+                    }
                 </div>
             </div>
         );
