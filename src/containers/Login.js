@@ -1,10 +1,12 @@
 import {connect} from 'react-redux';
 import LoginDialog from '../components/LoginDialog';
-import { requestLogin } from '../actions/actions';
+import { requestLogin, requestLogging } from '../actions/actions';
 const mapDispatchToProps = (dispatch)=>({
-    requestLogin : (data)=>dispatch(requestLogin(data))
+    requestLogin : (data)=>dispatch(requestLogin(data)),
+    requestLogging : (data)=>dispatch(requestLogging(data))
 })
 const mapStateToProps = (state)=>({
-    isLoggedIn : state.isLoggedIn
+    isLoggedIn : state.employeeLogin.isLoggedIn,
+    username : state.employeeLogin.employee.username
 })
 export default connect(mapStateToProps,mapDispatchToProps)(LoginDialog);

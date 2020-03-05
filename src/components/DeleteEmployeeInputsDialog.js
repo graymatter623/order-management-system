@@ -9,6 +9,7 @@ class DeleteEmployeeInputsDialog extends  React.Component{
             shouldDelete :  false
         };
     }
+   
     handleChange = (event)=>{
         this.setState({ 
             shouldDelete : event.target.value 

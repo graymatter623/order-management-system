@@ -1,6 +1,8 @@
 import {connect} from 'react-redux';
 import DashBoardDialog from '../components/DashBoardDialog';
 const mapStateToProps = (state)=>({
-    employee : state.employeeLogin.employee
-})
+    employee : state.employeeLogin.employee,
+    isLoggedIn : state.employeeLogin.isLoggedIn
+});
+
 export default connect(mapStateToProps,null)(DashBoardDialog);

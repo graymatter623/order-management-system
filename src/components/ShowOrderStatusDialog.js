@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-const ShowOrderStatusDialog = ({urlType , orders })=>{
+import { requestOrderSelect } from '../actions/actions';
+import {connect} from 'react-redux';
+const ShowOrderStatusDialog = ({selectOrder,urlType , orders })=>{
     return(
         <div className = "container">
             <ul className = "list-group">
@@ -9,6 +11,7 @@ const ShowOrderStatusDialog = ({urlType , orders })=>{
                             className = "list-group-item" 
                             to = {`${urlType}/${order._id}`}
                             key = {index}
+                            onClick = { ()=> selectOrder(order) }
                         >{order.orderTitle} 
                         <span className = "d-flex justify-content-end" style = {{ textDecoration : "none"}}> {order.status}</span>
                         </Link> 
@@ -18,4 +21,7 @@ const ShowOrderStatusDialog = ({urlType , orders })=>{
         </div>
     );
 }
-export default ShowOrderStatusDialog;
+const mapDispatchToProps = (dispatch)=>({
+    selectOrder : (order)=> dispatch(requestOrderSelect(order))
+})
+export default connect(null,mapDispatchToProps)(ShowOrderStatusDialog);

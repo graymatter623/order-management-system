@@ -1,18 +1,20 @@
 import {
     REQUEST_LOGIN,
-    RESPONSE_LOGIN_SUCCESS
+    RESPONSE_LOGIN_SUCCESS,
+    REQUEST_LOGOUT
 } from '../actions/actions.js';
 
-const employeeLogin = ( state = { 
+const initialState = {
     employee : {},
     isLoggedIn : false,
     loading : false,
     token : "" ,
     isOwner : false
-},action)=>{
+};
+const employeeLogin = ( state = initialState,action)=>{
     switch(action.type){
         case REQUEST_LOGIN:
-            return {
+            return{
                 ...state,
                 loading : true
             };
@@ -25,6 +27,8 @@ const employeeLogin = ( state = {
                 loading : false  ,
                 isOwner : action.data.isOwner  
             };
+        case REQUEST_LOGOUT:
+            return initialState;
         default :
             return state;
     }

@@ -30,11 +30,8 @@ const TableBody = ({values})=>(
        
     </tbody>
 );
-const ShowOrdersInTables = ({orders})=>{
-    const newOrders  = orders.map( order=> {delete order._id; delete order.__v; return order} );
-
-    const heads = ["ORDER TITLE","ORDER DATE", "START TIME","ORDER STATUS","CREATED AT","ORDER QUANTITY"];
-    const values = newOrders.map( order=> Object.values(order));
+const ShowDataInTables = ({data ,heads})=>{
+    const values = data.map( obj=> Object.values(obj));
     return(
         <React.Fragment>
             <table className = "table">
@@ -45,4 +42,4 @@ const ShowOrdersInTables = ({orders})=>{
     );
 }
 
-export default ShowOrdersInTables;
+export default ShowDataInTables;

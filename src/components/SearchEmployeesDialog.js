@@ -10,8 +10,9 @@ class SearchEmployeesDialog  extends React.Component{
         } 
     }
     componentDidMount(){
-        this.props.requestEmployeesData();
+        this.props.requestEmployeesData(this.props.token);
     }
+  
     handleInputChange = (event)=>{
         if(this.props.searchByName){
             const emp = this.props.employees.filter((emp)=> 
@@ -31,8 +32,9 @@ class SearchEmployeesDialog  extends React.Component{
                         onChange = {this.handleInputChange} 
                         type = "text" 
                     placeholder = "Search..."/>) }
-                    {this.props.loading ? (
-                        <Loading loading = {this.props.loading} />) : 
+                    {this.props.loading ? 
+                        (<Loading loading = {this.props.loading} />) 
+                        : 
                         this.props.employees !== undefined ?
                             (this.props.searchByName ? 
                             (<SearchByName 
@@ -42,7 +44,7 @@ class SearchEmployeesDialog  extends React.Component{
                             : 
                             <SearchByAvailable 
                                 orderId = {this.props.orderId}
-                                urlType = {this.props.urlType}
+                                urlType = {`${this.props.order._id}/${this.props.urlType}`}
                                 employees = {this.props.employees }
                             />)  
                             : 
@@ -53,4 +55,5 @@ class SearchEmployeesDialog  extends React.Component{
         );
     }
 }
+
 export default SearchEmployeesDialog;

@@ -12,6 +12,7 @@ class CreateOrderDialog extends React.Component{
             orderDate : ""
         };
     }
+  
     handleChange = (event)=>{
         this.setState({
             [event.target.name] : event.target.value
