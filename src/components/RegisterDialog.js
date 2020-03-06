@@ -3,11 +3,11 @@ import axios from "axios";
 import { Redirect ,Link} from "react-router-dom";
 import {
   TextField,
-  Button,
   withStyles,
   Grid,
   Typography
 } from "@material-ui/core";
+import ButtonDialog from './shared-components/ButtonDialog';
 const styles = {
   root: {
     padding: "50px",
@@ -35,10 +35,10 @@ class RegisterDialog extends React.Component {
       employee_name: "",
       isUsernameInvalid: false,
       isPasswordInvalid: false,
-      isNameInvalid: false
+      isNameInvalid: false,
+      registrationSuccess : false
     };
   }
- 
   handleSubmit = () => {
     if (this.state.employee_username === "") {
       this.setState({
@@ -92,12 +92,13 @@ class RegisterDialog extends React.Component {
         .then(response => {
           console.log(response.data);
           if (response.data.success) {
-            return <Redirect to="/" />;
+             this.setState({
+               registrationSuccess : response.data.success
+             });
           }
         });
     }
   };
-
   handleChange = event => {
     if (event.target.name === "employee_username") {
       this.setState(
@@ -125,7 +126,7 @@ class RegisterDialog extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      !this.state.registrationSuccess ? (<div className={classes.root}>
         <Grid container alignItems="center" justify="space-evenly">
           <Grid item>
             <Typography variant="h4">SIGN UP</Typography>
@@ -200,15 +201,13 @@ class RegisterDialog extends React.Component {
             )}
           </Grid>
           <Grid item>
-            <Button
+            <ButtonDialog
               className={classes.button}
               color="primary"
               size="small"
               variant="contained"
-              onClick={this.handleSubmit}
-            >
-              Sign up
-            </Button>
+              onClick={this.handleSubmit} 
+              label="Sign up" />
           </Grid>
           <Grid item>
             <Typography variant="body2">
@@ -222,10 +221,9 @@ class RegisterDialog extends React.Component {
                 Login
               </Link>
             </Typography>
-          </Grid>
-       
+          </Grid>       
         </Grid>
-      </div>
+      </div>) : <Redirect to="/" />
     );
   }
 }

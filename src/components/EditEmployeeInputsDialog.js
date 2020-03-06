@@ -1,7 +1,21 @@
 import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import ButtonDialog from './shared-components/ButtonDialog';
+import { Select,MenuItem,TextField, Typography, InputLabel } from '@material-ui/core';
+import {withStyles } from '@material-ui/core/styles';
 // import {useParams} from 'react-router-dom';
+const styles = {
+    input : {
+        margin : "5px"
+    },
+    container : {
+        margin : "0 10px"
+    },
+    button : {
+        margin : "10px 0"
+    }
+};
 class EditEmployeeInputsDialog extends  React.Component{
     constructor(props){
         super(props);
@@ -14,30 +28,55 @@ class EditEmployeeInputsDialog extends  React.Component{
    
     handleUpdate = ()=>{
         // console.log(this.props.token);
-        const response = axios.post(`http://localhost:5000/edit-employee/${this.state.employeeId}`,this.state,{
+        axios.post(`http://localhost:5000/edit-employee/${this.state.employeeId}`,this.state,{
             headers : {
                 'Accept' : 'application/json',
                 'Authorization' :`Bearer ${this.props.token}` 
             }
         })
             .then(response=>response).catch(error => console.error(error));
-        console.log(response);
+        // console.log(response);
     }
     handleChange = (event)=>{
         this.setState({
             [event.target.name] : event.target.value,
-        },console.log(this.state.employee_name));
+        });
     }
     render(){
+        const {classes} = this.props;
         return(
-            <div className = "container">
-                New Employee Name :<input name = "employee_name" type = "text" className = "form-control" onChange = {this.handleChange}/>
-                Availability : 
-                <select onChange = {this.handleChange} name = "employee_available" >
-                    <option value = {true}> Yes </option>
-                    <option value = {false}> No </option>
-                </select><br/>
-                <button className = "btn btn-primary" onClick = {this.handleUpdate}>Update</button>
+            <div className = {classes.container}>
+                <Typography variant="body1" component="span">New Employee Name :</Typography>
+                <br/>
+                <TextField 
+                    name = "employee_name" 
+                    id="edit-employee-id"
+                    type = "text"
+                    variant="outlined"
+                    label="Employee Name"
+                    className = {classes.input} 
+                    onChange = {this.handleChange}
+                    />
+                
+                <InputLabel id="select-available-id">Availability</InputLabel>
+                <Select 
+                    id="select-available-id"
+                    value={true}
+                    labelId="select-available-label-id"
+                    onChange = {this.handleChange}  
+                >
+                    <MenuItem value = {true}> Yes </MenuItem>
+                    <MenuItem value = {false}> No </MenuItem>
+                </Select>
+                <br/>
+                <ButtonDialog 
+                    className={classes.button}
+                    variant="contained" 
+                    size="small"
+                    color="primary"
+                    onClick = {this.handleUpdate}
+                    label="Update"
+                />
             </div>
         );
     }
@@ -45,4 +84,4 @@ class EditEmployeeInputsDialog extends  React.Component{
 const mapStateToProps = (state)=>({
     token : state.employeeLogin.token
 })
-export default connect(mapStateToProps,null)(EditEmployeeInputsDialog);
+export default withStyles(styles)(connect(mapStateToProps,null)(EditEmployeeInputsDialog));

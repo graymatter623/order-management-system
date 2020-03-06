@@ -14,7 +14,6 @@ import Logout from "../containers/Logout";
 import {requestLogging} from '../actions/actions';
 class App extends React.Component {
   componentDidUpdate(prevProps) {
-    //let from = prevProps.location.pathname!== undefined ? prevProps.location.pathname :'/' ;
     if(prevProps.location.pathname !== this.props.location.pathname){
         console.log(prevProps.location.pathname,this.props.location.pathname);    
         let now = new Date();

@@ -10,9 +10,8 @@ class AssignOrderToEmployee extends React.Component{
             }
         });
     }
-  
     render(){
-        console.log(this.props.match);
+       // console.log(this.props.match);
         return(
             <div className = "container">
                 <button className = 'btn btn-primary' onClick = {this.handleClick}>Assign Order To Employee</button>

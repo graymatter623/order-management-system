@@ -4,7 +4,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 // import InputLabel from '@material-ui/core/InputLabel';
 import TextField from "@material-ui/core/TextField";
-import Button from '@material-ui/core/Button';
+import ButtonDialog from './shared-components/ButtonDialog';
 import { withStyles } from "@material-ui/core/styles";
 import ShowDataInTables from "./ShowDataInTables";
 
@@ -15,6 +15,7 @@ const filters = {
   BY_MINUTES: "BY_MINUTES",
   BY_MONTH: "BY_MONTH"
 };
+
 const styles = {
   container: {
     flexGrow: 1,
@@ -27,13 +28,15 @@ const styles = {
     marginRight : "50px"
   }
 };
+
 class ShowLogsDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       logs: [],
       selectedFilter: "",
-      date: ""
+      date: "",
+      hours : "",
     };
   }
   handleChange = event => {
@@ -48,11 +51,22 @@ class ShowLogsDialog extends React.Component {
       });
     }
   };
+  handleTimeChange = event=>{
+    if(event.target.value.length >=5){
+      this.setState({
+        hours : event.target.value
+      },()=>{
+        console.log(this.state.hours);
+      });
+    }
+  }
   handleClick = async()=>{
-    // console.log('Inside');
+    const filterValue = this.state.selectedFilter === filters.BY_DATE ? this.state.date
+      : (this.state.selectedFilter===filters.BY_HOURS ? this.state.hours.substr(0,2): null);  
+    
     const response = await axios.post("http://localhost:5000/get-logs",{
       filterType : this.state.selectedFilter,
-      filterDate : this.state.date,
+      filterValue : filterValue
     },{
       headers: {
         Authorization: `Bearer ${this.props.token}`,
@@ -64,10 +78,8 @@ class ShowLogsDialog extends React.Component {
         logs: response.data.logs
       });
     }
-    // console.log(response.data);
   }
   render() {
-    // console.log(this.state.logs);
     const { classes } = this.props;
     const heads = [
       "From",
@@ -101,14 +113,44 @@ class ShowLogsDialog extends React.Component {
             onChange={this.handleDateChange}
             InputLabelProps={{ shrink: true }}
           />
-          <Button 
+          <ButtonDialog 
             variant="contained" 
             color="primary" 
-            onClick={this.handleClick}>Filter
-          </Button></>) 
+            onClick={this.handleClick}
+            label="Filter"
+            /></>) 
+          :  
+          null}
+          {this.state.selectedFilter === filters.BY_HOURS ? ( <>
+          <TextField
+            className={classes.date}
+            label="By Hours"
+            id="hours"
+            type="time"
+            defaultValue=""
+            onChange={this.handleTimeChange}
+            InputLabelProps={{ shrink: true }}
+            inputProps={{
+              step : 300
+            }}
+          />
+          <ButtonDialog 
+            variant="contained" 
+            color="primary" 
+            onClick={this.handleClick}
+            label="Filter"/>
+          </>) 
           :  
           null}
          { ((this.state.logs.length > 0) && (this.state.selectedFilter === filters.BY_DATE) && (this.state.date.length >= 10) )? 
+            <ShowDataInTables 
+              heads={heads} 
+              data={newLogs}
+            />  
+              : 
+              null
+          }
+          { ((this.state.logs.length > 0) && (this.state.selectedFilter === filters.BY_HOURS) && (this.state.hours.length >= 5) )? 
             <ShowDataInTables 
               heads={heads} 
               data={newLogs}

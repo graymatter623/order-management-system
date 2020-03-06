@@ -11,7 +11,7 @@ import profileImage from '../res/admin-profile-image.png';
 import {Link} from 'react-router-dom';
 const useStyles = makeStyles(theme=>({
     card : {
-        width : 300,
+        width : 200,
         height : 170
     },
     avatar : {
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme=>({
         textAlign:"center"
     },
     actions : {
-        marginLeft:"97px"
+        margin : "0 50px"
     },
     logoutButton : {
         textAlign : "center",

@@ -1,27 +1,74 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import { requestOrderSelect } from '../actions/actions';
-import {connect} from 'react-redux';
-const ShowOrderStatusDialog = ({selectOrder,urlType , orders })=>{
-    return(
-        <div className = "container">
-            <ul className = "list-group">
-                {orders.map((order ,index)=> 
-                        <Link 
-                            className = "list-group-item" 
-                            to = {`${urlType}/${order._id}`}
-                            key = {index}
-                            onClick = { ()=> selectOrder(order) }
-                        >{order.orderTitle} 
-                        <span className = "d-flex justify-content-end" style = {{ textDecoration : "none"}}> {order.status}</span>
-                        </Link> 
-                    )
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+  Divider,
+  Typography
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import cartImg from "../res/cart-image.png";
+import { requestOrderSelect } from "../actions/actions";
+import { connect } from "react-redux";
+const useStyles = makeStyles(theme => ({
+  container: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper
+  },
+  inline: {
+    display: "inline"
+  }
+}));
+
+const ShowOrderStatusDialog = ({ selectOrder, urlType, orders }) => {
+  const classes = useStyles();
+  // orders.map(order=>console.log(order._id));
+  return (
+    <div className={classes.container}>
+      <List>
+        {orders.map((order) => (
+          <React.Fragment key={order._id}>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar alt={order.orderTitle + "icon"} src={cartImg} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={
+                  <>
+                    <Link
+                      to={`${urlType}/${order._id}`}
+                      onClick={() => selectOrder(order)}
+                    >
+                      {order.orderTitle}
+                    </Link>
+                  </>
                 }
-            </ul>
-        </div>
-    );
-}
-const mapDispatchToProps = (dispatch)=>({
-    selectOrder : (order)=> dispatch(requestOrderSelect(order))
-})
-export default connect(null,mapDispatchToProps)(ShowOrderStatusDialog);
+                secondary={
+                  <>
+                    <Typography
+                      variant="body2"
+                      component="span"
+                      color="textPrimary"
+                      className={classes.inline}
+                    >
+                      Order Status - {order.status}
+                    </Typography>
+                  </>
+                }
+              />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </React.Fragment>
+        ))}
+      </List>
+    </div>
+  );
+};
+const mapDispatchToProps = dispatch => ({
+  selectOrder: order => dispatch(requestOrderSelect(order))
+});
+export default connect(null, mapDispatchToProps)(ShowOrderStatusDialog);

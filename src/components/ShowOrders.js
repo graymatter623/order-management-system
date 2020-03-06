@@ -7,7 +7,8 @@ class ShowOrders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orders: []
+      orders: [],
+      copyOrders : []
     };
   }
   async componentDidMount() {
@@ -17,19 +18,16 @@ class ShowOrders extends React.Component {
         Accept: "application/json"
       }
     });
-    // console.log(response.data);
+    //response.data.orders.map( order => console.log(order._id));
+    // ;
     if (response.data) {
       this.setState({
-        orders: response.data.orders
+        orders: response.data.orders,
       });
     }
   }
   render() {
-    const newOrders = this.state.orders.map(order => {
-      delete order._id;
-      delete order.__v;
-      return order;
-    });
+    //this.state.orders.map( order => console.log(order._id));
     const heads = [
       "ORDER TITLE",
       "ORDER DATE",
@@ -38,7 +36,6 @@ class ShowOrders extends React.Component {
       "CREATED AT",
       "ORDER QUANTITY"
     ];
-    //  console.log(this.props);
     return (
       <div className="container">
         {this.props.showStatus ? (
@@ -47,7 +44,10 @@ class ShowOrders extends React.Component {
             urlType={this.props.urlType}
           />
         ) : (
-          <ShowDataInTables heads= {heads} orders={newOrders} />
+          <ShowDataInTables 
+            heads={heads} 
+            data={this.state.orders} 
+          />
         )}
       </div>
     );

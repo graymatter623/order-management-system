@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 const SearchByAvailable = ({urlType,employees})=>{
-    console.log('INSIDE AVAIL');
+    // console.log('INSIDE AVAIL');
     employees = employees.filter(employee => employee.isAvailable === true);
-    console.log(employees);
+    // console.log(employees);
     return(
         <div className = "container-sm">
             <ul className = "list-group">
