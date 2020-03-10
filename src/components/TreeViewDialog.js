@@ -180,19 +180,45 @@ class TreeViewDialog extends React.Component {
                   className={classes.items}
                   nodeId="head-4"
                   label={
+                    <Typography variant="body1">
+                      <DescriptionIcon fontSize="large" />
+                      Logs
+                   </Typography>
+                  }
+              >
+                <TreeItem
+                nodeId="show-route-logs"
+                label={
+                  <Link
+                    onClick={this.setShouldDraw}
+                    onMouseOver={event => {
+                      this.changeColor(event);
+                    }}
+                    className={classes.links}
+                    to="/show-route-logs"
+                  >
+                    {<ArrowRightIcon />}Route Logs
+                  </Link>
+                }
+                />
+                  <Divider/>
+                <TreeItem
+                  nodeId="show-login-logs"
+                  label={
                     <Link
-                      onClick={() => this.setShouldDraw}
+                      onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
                       }}
-                      to="/show-logs"
                       className={classes.links}
+                      to="/show-login-logs"
                     >
-                      <DescriptionIcon fontSize="large" />
-                      Show Logs
+                      {<ArrowRightIcon />}Login Logs
                     </Link>
                   }
-                /><Divider/>
+                />
+                </TreeItem>
+              <Divider/>
             </TreeView>
           );
     }

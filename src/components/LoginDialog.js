@@ -48,6 +48,9 @@ class LoginDialog extends React.Component {
         employee_username: this.state.employee_username,
         employee_password: this.state.employee_password
       });
+      if(this.props.isLoggedIn){
+        console.log('EEE');
+      }
     }
   };
   usernameValidate = () => {

@@ -6,7 +6,8 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Divider
+  Divider,
+  // Typography
 } from "@material-ui/core";
 import { SwipeableDrawer } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -127,9 +128,18 @@ class AdminDashBoardDialog extends React.Component {
             <Divider />
             <SideList classes={classes} setShouldDraw={this.setShouldDraw} />
           </SwipeableDrawer>
-          {/* {  Route } */}
+          
+          {/* {  Routes } */}
           <Switch>
-            <Route exact path="/show-logs" component={ShowLogs} />
+            <Route 
+              exact 
+              path="/show-login-logs" 
+              children={ <ShowLogs logType="LOGIN"/>} />
+              
+            <Route 
+              exact 
+              path="/show-route-logs" 
+              children={<ShowLogs logType="ROUTE"/>}/>
             <Route
               exact
               path="/search-employees"

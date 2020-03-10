@@ -6,11 +6,19 @@ import {
   responseLoginSuccess,
   responseEmployeesDataSuccess,
   responseTodayOrdersSuccess,
-  REQUEST_LOG
+  REQUEST_LOG,
+  REQUEST_LOGIN_LOGS
 } from "../actions/actions";
 import axios from "axios";
 
 // eslint-disable-next-line
+function* requestLoginLogs (action) {
+  yield axios.post('http://localhost:5000/login-logs-route',action.data)
+    .then(response=>console.log(response));
+}
+function* watchRequestLoginLogs(){
+  yield takeLatest(REQUEST_LOGIN_LOGS ,requestLoginLogs);
+}
 function* requestLogViewer(action) {
   yield axios
     .post("http://localhost:5000/log-route", action.data)
@@ -63,7 +71,8 @@ function* rootSaga() {
     watchFetchLoginDetails(),
     watchFetchEmployeeData(),
     watchFetchTodayOrders(),
-    watchRequestLogViewer()
+    watchRequestLogViewer(),
+    watchRequestLoginLogs()
   ]);
 }
 export default rootSaga;

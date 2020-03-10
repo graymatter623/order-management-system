@@ -4,13 +4,15 @@ import SearchByName from "./SearchByName";
 import SearchByAvailable from "./SearchByAvailable";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
+import Typography from '@material-ui/core/Typography';
 const styles = {
     container : {
+        margin : "0 40px",
         width: "100%",
         maxWidth: 360
     },  
     input: {
-        margin : "0 40px",
+        //margin : "0px",
         width: "200%",
         // maxWidth: 360
   }
@@ -39,7 +41,9 @@ class SearchEmployeesDialog extends React.Component {
       const { classes} = this.props;
     return (
       <div className={classes.container}>
-       
+          <Typography variant="h4">
+              Total Employees:{ this.props.employees !== undefined ? this.props.employees.length : 0}
+          </Typography>
           {this.props.searchByName && (
             <TextField
               variant="outlined"

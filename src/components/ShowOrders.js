@@ -3,6 +3,13 @@ import axios from "axios";
 import ShowDataInTables from "./ShowDataInTables";
 import { connect } from "react-redux";
 import ShowOrderStatusDialog from "./ShowOrderStatusDialog";
+import {withStyles} from '@material-ui/core/styles';
+import Typography  from '@material-ui/core/Typography';
+const styles = {
+  container : {
+    margin : "5px 10px"
+  }
+};
 class ShowOrders extends React.Component {
   constructor(props) {
     super(props);
@@ -36,8 +43,18 @@ class ShowOrders extends React.Component {
       "CREATED AT",
       "ORDER QUANTITY"
     ];
+    this.state.orders.map(order=> {
+      delete order._id; 
+      delete order.__v;
+      return order; 
+    });
+    const {classes} = this.props;
     return (
-      <div className="container">
+      <div className={classes.container}>
+        
+        <Typography variant="h3">
+          Total Orders : { this.state.orders !== undefined ? this.state.orders.length : 0}
+        </Typography>
         {this.props.showStatus ? (
           <ShowOrderStatusDialog
             orders={this.state.orders}
@@ -57,4 +74,4 @@ const mapStateToProps = state => ({
   token: state.employeeLogin.token
 });
 
-export default connect(mapStateToProps, null)(ShowOrders);
+export default withStyles(styles)(connect(mapStateToProps, null)(ShowOrders));

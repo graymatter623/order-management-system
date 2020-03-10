@@ -7,10 +7,10 @@ import {withStyles } from '@material-ui/core/styles';
 // import {useParams} from 'react-router-dom';
 const styles = {
     input : {
-        margin : "5px"
+        //margin : "0px"
     },
     container : {
-        margin : "0 10px"
+       
     },
     button : {
         margin : "10px 0"
@@ -57,7 +57,6 @@ class EditEmployeeInputsDialog extends  React.Component{
                     className = {classes.input} 
                     onChange = {this.handleChange}
                     />
-                
                 <InputLabel id="select-available-id">Availability</InputLabel>
                 <Select 
                     id="select-available-id"

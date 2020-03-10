@@ -34,8 +34,7 @@ const SearchByName = ({ urlType, employees }) => {
             <ListItemText primary={
               <>
                 <Link
-                  to={`${urlType}/${employee._id}`}
-                  
+                  to={`${urlType}/${employee._id}`}                  
                 >
                 {employee.name}
                 </Link>
