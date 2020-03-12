@@ -57,6 +57,8 @@ class ShowLogsDialog extends React.Component {
     if (event.target.value.length >= 10) {
       this.setState({
         date: event.target.value
+      },()=>{
+        console.log(this.state.date)
       });
     }
   };
@@ -137,7 +139,7 @@ class ShowLogsDialog extends React.Component {
     const response = await axios.post(
       "http://localhost:5000/get-logs",
       {
-        index : 1,
+        pageNumber : 1,
         filterLogType: this.props.logType,
         filterType: this.state.selectedFilter,
         filterValue: filterValue
@@ -175,25 +177,33 @@ class ShowLogsDialog extends React.Component {
     });
     return (
       <div className={classes.container}>
-        {/* <InputLabel id="log-filter-label-id">Filter</InputLabel> */}
         <Select
-          id="logs-filter-select-id"
+          id="filter-logs-select-id"
           onChange={this.handleChange}
           labelId="log-filter-label-id"
           value={this.state.selectedFilter}
         >
-          <MenuItem value={filters.BY_DATE}> By Date</MenuItem>
-          <MenuItem value={filters.BY_HOURS}> By Hours</MenuItem>
-          <MenuItem value={filters.BY_WEEK}> By Week</MenuItem>
-          <MenuItem value={filters.SHOW_ALL}> Show All</MenuItem>
+          <MenuItem id="by-date-filter-id" value={filters.BY_DATE}> By Date</MenuItem>
+          <MenuItem id="by-hours-filter-id" value={filters.BY_HOURS}> By Hours</MenuItem>
+          <MenuItem id="by-week-filter-id" value={filters.BY_WEEK}> By Week</MenuItem>
+          <MenuItem id="show-all-filter-id" value={filters.SHOW_ALL}> Show All</MenuItem>
         </Select>
         {(this.state.selectedFilter === filters.SHOW_ALL) && (
          <> <ButtonDialog
+            id="previous-logs-button-id"
             className={classes.navigationButton}
             onClick={this.handlePrevNavigation}
             component={<NavigationBeforeIcon />}
           />
+           <ButtonDialog
+              id="filter-logs-submit-button-id"
+              variant="contained"
+              color="primary" 
+              onClick={this.handleClick}
+              label="Show All"
+            />
           <ButtonDialog
+            id="next-logs-button-id"
             onClick={this.handleNextNavigation}
             className={classes.navigationButton}
             component={<NavigationNextIcon />}
@@ -205,23 +215,26 @@ class ShowLogsDialog extends React.Component {
             <TextField
               className={classes.date}
               label="By Date"
-              id="date"
+              id="date-input-id"
               type="date"
               onChange={this.handleDateChange}
               InputLabelProps={{ shrink: true }}
             />
             <ButtonDialog
+              id="previous-logs-button-id"
+              className={classes.navigationButton}
+              onClick={this.handlePrevNavigation}
+              component={<NavigationBeforeIcon />}
+            />
+            <ButtonDialog
+              id="filter-logs-submit-button-id"
               variant="contained"
               color="primary"
               onClick={this.handleClick}
               label="Filter"
             />
             <ButtonDialog
-              className={classes.navigationButton}
-              onClick={this.handlePrevNavigation}
-              component={<NavigationBeforeIcon />}
-            />
-            <ButtonDialog
+              id="next-logs-button-id"
               onClick={this.handleNextNavigation}
               className={classes.navigationButton}
               component={<NavigationNextIcon />}
@@ -233,7 +246,7 @@ class ShowLogsDialog extends React.Component {
             <TextField
               className={classes.date}
               label="By Hours"
-              id="hours"
+              id="hours-input-id"
               type="time"
               defaultValue=""
               onChange={this.handleTimeChange}
@@ -243,17 +256,20 @@ class ShowLogsDialog extends React.Component {
               }}
             />
             <ButtonDialog
+              id="previous-logs-button-id"
+              className={classes.navigationButton}
+              onClick={this.handlePrevNavigation}
+              component={<NavigationBeforeIcon />}
+            />
+            <ButtonDialog
+              id="filter-logs-submit-button-id"
               variant="contained"
               color="primary"
               onClick={this.handleClick}
               label="Filter"
             />
             <ButtonDialog
-              className={classes.navigationButton}
-              onClick={this.handlePrevNavigation}
-              component={<NavigationBeforeIcon />}
-            />
-            <ButtonDialog
+              id="next-logs-button-id"
               className={classes.navigationButton}
               onClick={this.handleNextNavigation}
               component={<NavigationNextIcon />}

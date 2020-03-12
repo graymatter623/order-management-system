@@ -7,8 +7,9 @@ const SearchByAvailable = ({urlType,employees})=>{
     return(
         <div className = "container-sm">
             <ul className = "list-group">
-                {employees.map(employee =>
+                {employees.map((employee,index) =>
                     <Link 
+                        id={`employee-name-link-id-${index}`}
                         to = {`${urlType}/${employee._id}`}
                         className = 'list-group-item' 
                         key = {employee._id} 

@@ -84,10 +84,11 @@ class AdminDashBoardDialog extends React.Component {
     const { classes } = this.props;
     return (
       <BrowserRouter>
-        <div className={classes.grow}>
+        <div className={classes.grow} id="main-content-area">
           <AppBar position="static">
             <Toolbar>
               <IconButton
+                id="toolbar-icon-button-id-01"
                 edge="start"
                 aria-label="menu"
                 onClick={this.setShouldDraw}
@@ -96,6 +97,7 @@ class AdminDashBoardDialog extends React.Component {
               </IconButton>
               <div className={classes.grow} />
               <IconButton
+                id="profile-card-button-id"
                 edge="end"
                 className={classes.profileButton}
                 aria-label="profile-menu"
@@ -126,7 +128,7 @@ class AdminDashBoardDialog extends React.Component {
             onClose={this.setShouldDraw}
           >
             <Divider />
-            <SideList classes={classes} setShouldDraw={this.setShouldDraw} />
+            <SideList isAdmin={true} classes={classes} setShouldDraw={this.setShouldDraw} />
           </SwipeableDrawer>
           
           {/* {  Routes } */}

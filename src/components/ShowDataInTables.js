@@ -9,23 +9,24 @@ const TableHeads = ({ heads }) => (
     </tr>
   </thead>
 );
-const TableValues = ({ value }) => <td>{value}</td>;
+const TableValues = ({ value,index}) => <td id={`data-${index}`}>{value}</td>;
+
 const TableBody = ({ values }) => (
   <tbody>
     {values.map((value, index) => (
       <tr key={index}>
         {value.map((val, index) => (
-          <TableValues key={val + "-" + toString(index)} value={val} />
+          <TableValues key={val + "-" + toString(index)} value={val} index={index} />
         ))}
       </tr>
     ))}
   </tbody>
 );
+
 const ShowDataInTables = ({ data, heads }) => {
   const values = data !== undefined ? data.map(obj => {
         return Object.values(obj) 
     } ) : [];
-    
   return (
     <React.Fragment>
       <table className="table">

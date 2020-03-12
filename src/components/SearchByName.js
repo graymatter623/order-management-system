@@ -28,12 +28,13 @@ const SearchByName = ({ urlType, employees }) => {
       <List className={classes.container}>
         {employees.map((employee,index) => (<React.Fragment key={employee._id}>
           <ListItem alignItems="flex-start">
-            <ListItemAvatar >
+            <ListItemAvatar>
               <Avatar alt={employee.name+"profile-picture"} src={img}/>
             </ListItemAvatar>
             <ListItemText primary={
               <>
                 <Link
+                  id={`employee-name-link-id-${index}`}
                   to={`${urlType}/${employee._id}`}                  
                 >
                 {employee.name}

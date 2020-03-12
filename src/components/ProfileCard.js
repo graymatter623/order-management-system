@@ -36,16 +36,17 @@ const ProfileCard = ({owner})=>{
             <CardActionArea>
                 <CardMedia>
                     <Avatar 
+                        id="profile-card-employee-image-id"
                         alt="user_profile_image" 
                         src={profileImage} 
                         className={classes.avatar}
                     />
                 </CardMedia>
                 <CardContent className={classes.content}>
-                    <Typography component="p">
+                    <Typography id="profile-card-employee-name-id" component="p">
                         {owner.name}
                     </Typography>
-                    <Typography component="p">
+                    <Typography id="profile-card-employee-username-id" component="p">
                         {owner.username}
                     </Typography>
                 </CardContent>
@@ -53,6 +54,7 @@ const ProfileCard = ({owner})=>{
             <CardActions className={classes.actions}>
                 <Link to="/logout">
                     <Button 
+                        id="profile-card-logout-button-id"
                         variant="contained" 
                         className={classes.logoutButton} 
                         size="small" 

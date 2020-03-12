@@ -14,7 +14,7 @@ import axios from "axios";
 // eslint-disable-next-line
 function* requestLoginLogs (action) {
   yield axios.post('http://localhost:5000/login-logs-route',action.data)
-    .then(response=>console.log(response));
+    .then(response=>response);
 }
 function* watchRequestLoginLogs(){
   yield takeLatest(REQUEST_LOGIN_LOGS ,requestLoginLogs);
@@ -22,9 +22,7 @@ function* watchRequestLoginLogs(){
 function* requestLogViewer(action) {
   yield axios
     .post("http://localhost:5000/log-route", action.data)
-    .then(response => {
-      console.log(response.data);
-    });
+    .then(response => response);
 }
 function* watchRequestLogViewer() {
   yield takeEvery(REQUEST_LOG, requestLogViewer);

@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+import ButtonDialog from "./shared-components/ButtonDialog";
 import { Link } from "react-router-dom";
 import { TextField, Typography, Grid, withStyles } from "@material-ui/core";
 const styles = {
@@ -89,7 +89,7 @@ class LoginDialog extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      <div className={classes.root} id="login-container-id">
         <Grid
           container
           direction="column"
@@ -104,7 +104,7 @@ class LoginDialog extends React.Component {
           <Grid item>
             {!this.state.isUsernameInvalid ? (
               <TextField
-                id="standard-adornment-username"
+                id="employee-username-id-01"
                 label="Username"
                 type="text"
                 name="employee_username"
@@ -115,7 +115,7 @@ class LoginDialog extends React.Component {
               <TextField
                 error
                 helperText="Username Required"
-                id="standard-adornment-username"
+                id="employee-username-id-01"
                 label="Username"
                 type="text"
                 name="employee_username"
@@ -128,7 +128,7 @@ class LoginDialog extends React.Component {
             {!this.state.isPasswordInvalid ? (
               <TextField
                 label="Password"
-                id="standard-adornment-password"
+                id="employee-password-id-01"
                 type="password"
                 name="employee_password"
                 onChange={this.handleInputChange}
@@ -139,7 +139,7 @@ class LoginDialog extends React.Component {
                 error
                 helperText="Password Required"
                 label="Password"
-                id="standard-adornment-password"
+                id="employee-password-id-01"
                 type="password"
                 name="employee_password"
                 onChange={this.handleInputChange}
@@ -148,20 +148,21 @@ class LoginDialog extends React.Component {
             )}
           </Grid>
           <Grid item>
-            <Button
+            <ButtonDialog
               className={classes.loginButton}
               color="primary"
               variant="contained"
               size="small"
+              id="login-button-id"
               onClick={this.handleValidation}
-            >
-              Login
-            </Button>
+              label="Login"
+            />
           </Grid>
           <Grid item>
             <Typography variant="body2">
               Don't have an account
               <Link
+                id="register-link-id"
                 to={{
                   pathname: "/register",
                   state: { from: this.props.location.pathname }

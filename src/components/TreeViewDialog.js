@@ -9,6 +9,106 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import {Link}  from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+// const treeObject= [
+//   {
+//     head : {
+//       nodeId : "",
+//       linkId : "",
+//       link : "",
+//       innerLabel : "Home",
+//       icon : <Home fontSize="large"/>
+//     },
+//     child : {
+//       child1 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Edit Employee",
+//         icon : <ArrowRightIcon />
+//       },
+//       child2 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Delete Employee",
+//         icon : <ArrowRightIcon />
+//       },
+//       child3 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Search Employee",
+//         icon : <ArrowRightIcon />
+//       }
+//     }
+//   },
+//   {
+//     head : {
+//       nodeId : "",
+//       linkId : "",
+//       link : "",
+//       innerLabel : "Orders",
+//       icon : <Home fontSize="large"/>
+//     },
+//     child : {
+//       child1 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Create Order",
+//         icon : <ArrowRightIcon />
+//       },
+//       child2 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Assign Order To Employee",
+//         icon : <ArrowRightIcon />
+//       },
+//       child3 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Show Order Status",
+//         icon : <ArrowRightIcon />
+//       },
+//       child4 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Show Orders",
+//         icon : <ArrowRightIcon />
+//       }
+//     }
+//   },
+//   {
+//     head : {
+//       nodeId : "",
+//       linkId : "",
+//       link : "",
+//       innerLabel : "Logs",
+//       icon : <Home fontSize="large"/>
+//     },
+//     child : {
+//       child1 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Show Login Logs",
+//         icon : <ArrowRightIcon />
+//       },
+//       child2 : {
+//         nodeId : "",
+//         linkId : "",
+//         link : "",
+//         innerLabel : "Show Route Logs",
+//         icon : <ArrowRightIcon />
+//       }
+//     }
+//   }
+// ];
+
+
 class TreeViewDialog extends React.Component {
     constructor(props){
       super(props);
@@ -20,14 +120,16 @@ class TreeViewDialog extends React.Component {
     };
     render () {
         
-        const {classes} = this.props;
+        const {classes,isAdmin} = this.props;
         return (
+          isAdmin ?(
             <TreeView className={classes.tree} defaultCollapseIcon={<ExpandMoreIcon />}>
               <TreeItem
                 className={classes.items}
                 nodeId="head-1"
                 label={
                   <Link
+                    id="home-id-01"
                     onClick={this.setShouldDraw}
                     onMouseOver={event => {
                       this.changeColor(event);
@@ -35,8 +137,9 @@ class TreeViewDialog extends React.Component {
                     to="/dashboard"
                     className={classes.links}
                   >
-                    <HomeIcon fontSize="large" />
-                    Home
+                    <Typography variant="body1">
+                      <HomeIcon fontSize="large" /> Home
+                    </Typography>
                   </Link>
                 }
               />
@@ -45,9 +148,18 @@ class TreeViewDialog extends React.Component {
                 className={classes.items}
                 nodeId="head-2"
                 label={
-                  <Typography variant="body1">
-                    <PeopleIcon fontSize="large" /> Employees
-                  </Typography>
+                  <Link 
+                    className={classes.links}
+                    id="employees-id-01"
+                    to="/employees/#/"
+                    onMouseOver={ event =>{
+                      this.changeColor(event);
+                    }}
+                  >
+                    <Typography variant="body1">
+                      <PeopleIcon fontSize="large" /> Employees
+                    </Typography>
+                  </Link>
                 }
               >
                 <Divider/>
@@ -55,6 +167,7 @@ class TreeViewDialog extends React.Component {
                   nodeId="edit-employee-1"
                   label={
                     <Link
+                      id="edit-employee-id-01"
                       onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
@@ -71,6 +184,7 @@ class TreeViewDialog extends React.Component {
                   nodeId="delete-employee-1"
                   label={
                     <Link
+                      id="delete-employee-id-01"
                       onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
@@ -87,6 +201,7 @@ class TreeViewDialog extends React.Component {
                   nodeId="search-employee-1"
                   label={
                     <Link
+                      id="search-employee-id-01"
                       onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
@@ -101,19 +216,28 @@ class TreeViewDialog extends React.Component {
               </TreeItem>
                 <Divider/>
               <TreeItem
-                nodeId="head-3"
                 className={classes.items}
+                nodeId="head-3"
                 label={
-                  <Typography variant="body1">
-                    <ShoppingCartIcon fontSize="large" />
-                    Orders
-                  </Typography>
+                  <Link 
+                    className={classes.links}
+                    id="orders-id-01"
+                    to="/orders/#/"
+                    onMouseOver={ event =>{
+                      this.changeColor(event);
+                    }}
+                  >
+                    <Typography variant="body1">
+                      <ShoppingCartIcon fontSize="large" /> Orders
+                    </Typography>
+                  </Link>
                 }
               >
                 <TreeItem
                   nodeId="create-order-1"
                   label={
                     <Link
+                    id="create-order-id-01"
                       onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
@@ -130,6 +254,7 @@ class TreeViewDialog extends React.Component {
                   nodeId="assign-employee-1"
                   label={
                     <Link
+                      id="assign-order-to-employee-id-01"
                       onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
@@ -146,6 +271,7 @@ class TreeViewDialog extends React.Component {
                   nodeId="show-status-1"
                   label={
                     <Link
+                      id="show-order-status-id-01"
                       onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
@@ -162,6 +288,7 @@ class TreeViewDialog extends React.Component {
                   nodeId="show-orders-1"
                   label={
                     <Link
+                      id="show-orders-id-01"
                       onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
@@ -177,19 +304,28 @@ class TreeViewDialog extends React.Component {
               </TreeItem>
               <Divider/>
               <TreeItem
-                  className={classes.items}
-                  nodeId="head-4"
-                  label={
+                className={classes.items}
+                nodeId="head-4"
+                label={
+                  <Link 
+                    className={classes.links}
+                    id="logs-id-01"
+                    to="/logs/#/"
+                    onMouseOver={ event =>{
+                      this.changeColor(event);
+                    }}
+                  >
                     <Typography variant="body1">
-                      <DescriptionIcon fontSize="large" />
-                      Logs
-                   </Typography>
-                  }
+                      <DescriptionIcon fontSize="large" /> Logs
+                    </Typography>
+                  </Link>
+                }
               >
                 <TreeItem
                 nodeId="show-route-logs"
                 label={
                   <Link
+                    id="show-route-logs-id-01"
                     onClick={this.setShouldDraw}
                     onMouseOver={event => {
                       this.changeColor(event);
@@ -206,6 +342,7 @@ class TreeViewDialog extends React.Component {
                   nodeId="show-login-logs"
                   label={
                     <Link
+                      id="show-login-logs-id-01"
                       onClick={this.setShouldDraw}
                       onMouseOver={event => {
                         this.changeColor(event);
@@ -219,7 +356,49 @@ class TreeViewDialog extends React.Component {
                 />
                 </TreeItem>
               <Divider/>
-            </TreeView>
+            </TreeView>) : (
+                <TreeView className={classes.tree} defaultCollapseIcon={<ExpandMoreIcon />}>
+                 <TreeItem
+                   className={classes.items}
+                   nodeId="head-1"
+                   label={
+                     <Link
+                       id="home-id-01"
+                       onClick={this.setShouldDraw}
+                       onMouseOver={event => {
+                         this.changeColor(event);
+                       }}
+                       to="/dashboard"
+                       className={classes.links}
+                     >
+                       <Typography variant="body1">
+                         <HomeIcon fontSize="large" /> Home
+                       </Typography>
+                     </Link>
+                   }
+                 />
+                 <Divider/>
+                 <TreeItem
+                   className={classes.items}
+                   nodeId="head-2"
+                   label={
+                     <Link
+                       id="show-info-link-id"
+                       onClick={this.setShouldDraw}
+                       onMouseOver={event => {
+                         this.changeColor(event);
+                       }}
+                       to="/show-info"
+                       className={classes.links}
+                     >
+                       <Typography variant="body1">
+                         <PeopleIcon fontSize="large" /> Show Info
+                       </Typography>
+                     </Link>
+                   }
+                 />
+                </TreeView>
+            )
           );
     }
 } 

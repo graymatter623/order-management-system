@@ -29,9 +29,9 @@ class SearchEmployeesDialog extends React.Component {
   }
   handleInputChange = event => {
     if (this.props.searchByName) {
-      const emp = this.props.employees.filter(emp => {
+      const emp = this.props.employees !== [] ? this.props.employees.filter(emp => {
         return emp.name.toLowerCase().search(event.target.value) > -1;
-      });
+      }) : [];
       this.setState({
         employee: emp
       });

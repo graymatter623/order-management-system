@@ -24,7 +24,10 @@ const styles = {
   },
   button: {
     margin: "20px 60px"
-  }
+  },
+  warning : {
+    color : "red"
+  },
 };
 class RegisterDialog extends React.Component {
   constructor(props) {
@@ -36,7 +39,8 @@ class RegisterDialog extends React.Component {
       isUsernameInvalid: false,
       isPasswordInvalid: false,
       isNameInvalid: false,
-      registrationSuccess : false
+      registrationSuccess : false,
+      isUserAlreadyExist : false
     };
   }
   handleSubmit = () => {
@@ -90,11 +94,15 @@ class RegisterDialog extends React.Component {
       axios
         .post("http://localhost:5000/register", this.state)
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
           if (response.data.success) {
              this.setState({
                registrationSuccess : response.data.success
              });
+          }else if(!response.data.success){
+            this.setState({
+              isUserAlreadyExist : !response.data.success
+            });
           }
         });
     }
@@ -135,7 +143,7 @@ class RegisterDialog extends React.Component {
             {!this.state.isNameInvalid ? (
               <TextField
                 className={classes.inputFields}
-                id="standard-adornment-name"
+                id="employee-name-id-02"
                 label="Employee name"
                 name="employee_name"
                 type="text"
@@ -146,7 +154,7 @@ class RegisterDialog extends React.Component {
                 error
                 helperText="Name required"
                 className={classes.inputFields}
-                id="standard-adornment-name"
+                id="employee-name-id-02"
                 label="Employee name"
                 name="employee_name"
                 type="text"
@@ -158,7 +166,7 @@ class RegisterDialog extends React.Component {
             {!this.state.isUsernameInvalid ? (
               <TextField
                 className={classes.inputFields}
-                id="standard-adornment-username"
+                id="employee-username-id-02"
                 label="Username"
                 name="employee_username"
                 type="text"
@@ -169,7 +177,7 @@ class RegisterDialog extends React.Component {
                 error
                 helperText="Username Required"
                 className={classes.inputFields}
-                id="standard-adornment-username"
+                id="employee-username-id-02"
                 label="Username"
                 name="employee_username"
                 type="text"
@@ -181,7 +189,7 @@ class RegisterDialog extends React.Component {
             {!this.state.isPasswordInvalid ? (
               <TextField
                 className={classes.inputFields}
-                id="standard-adornment-password"
+                id="employee-password-id-02"
                 label="Password"
                 name="employee_password"
                 type="password"
@@ -190,9 +198,9 @@ class RegisterDialog extends React.Component {
             ) : (
               <TextField
                 error
+                id="employee-password-id-02"
                 helperText="Password Required"
                 className={classes.inputFields}
-                id="standard-adornment-password"
                 label="Password"
                 name="employee_password"
                 type="password"
@@ -201,18 +209,28 @@ class RegisterDialog extends React.Component {
             )}
           </Grid>
           <Grid item>
+              {this.state.isUserAlreadyExist && 
+                (<Typography variant="body1" component="p" className={classes.warning}>
+                  User Already Exist
+                </Typography>)
+              }
+          </Grid>
+          <Grid item>
             <ButtonDialog
+              id="register-button-id"
               className={classes.button}
               color="primary"
               size="small"
               variant="contained"
               onClick={this.handleSubmit} 
-              label="Sign up" />
+              label="Sign up" 
+            />
           </Grid>
           <Grid item>
             <Typography variant="body2">
               Already have an account{" "}
               <Link
+                id="login-link-id"
                 to={{
                   pathname: "/",
                   state: { from: this.props.location.pathname }

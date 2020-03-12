@@ -30,7 +30,7 @@ const ShowOrderStatusDialog = ({ selectOrder, urlType, orders }) => {
   return (
     <div className={classes.container}>
       <List>
-        {orders.map((order) => (
+        {orders.map((order,index) => (
           <React.Fragment key={order._id}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
@@ -40,6 +40,7 @@ const ShowOrderStatusDialog = ({ selectOrder, urlType, orders }) => {
                 primary={
                   <>
                     <Link
+                      id={`order-${index}`}
                       to={`${urlType}/${order._id}`}
                       onClick={() => selectOrder(order)}
                     >

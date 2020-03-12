@@ -1,12 +1,12 @@
 import React from 'react';
 import TreeViewDialog from './TreeViewDialog';
-const SideList = ({classes,setShouldDraw})=>(
+const SideList = ({isAdmin,classes,setShouldDraw})=>(
     <div
         className={classes.list}
         role="presentation"
         onKeyDown={()=> setShouldDraw}
     >
-    <TreeViewDialog classes={classes} setShouldDraw={setShouldDraw}/>
+    <TreeViewDialog isAdmin ={isAdmin} classes={classes} setShouldDraw={setShouldDraw}/>
   </div>
 );
 
