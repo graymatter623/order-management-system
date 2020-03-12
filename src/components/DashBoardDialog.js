@@ -16,6 +16,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ProfileCard from "./ProfileCard";
 import SideList from "./SideList";
 import ShowInfo from '../containers/ShowInfo';
+import Logout from '../containers/Logout';
 const styles = {
   links: {
     textDecoration: "none",
@@ -118,12 +119,16 @@ class DashBoardDialog extends React.Component {
             <Divider />
             <SideList isAdmin={false} classes={classes} setShouldDraw={this.setShouldDraw} />
           </SwipeableDrawer>
-          
             <Switch>
               <Route 
                 exact 
                 path="/show-info" 
                 component={ShowInfo} 
+              />
+              <Route 
+                exact
+                path="/logout"
+                component={Logout}
               />
             </Switch>
             </div>  

@@ -4,6 +4,7 @@ const {login} = require('./utility/login');
 const {logout} = require('./utility/logout');
 const {Credentials} = require('./utility/Credentials');
 const {deleteDummyUser} = require('./utility/db-services');
+const {navToEmployeeDashboard} = require('./utility/navToEmployeeDashboard');
 describe("Test for the action register and login /register route", ()=>{
     let driver;
     before(async()=>{
@@ -15,6 +16,7 @@ describe("Test for the action register and login /register route", ()=>{
     });
     it("Login Testing" , async ()=>{
         await login(driver,Credentials.at03);
+        await navToEmployeeDashboard(driver);
         await logout(driver);
         await deleteDummyUser(Credentials.at03.employee_username);
     });

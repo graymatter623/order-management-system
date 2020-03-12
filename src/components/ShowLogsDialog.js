@@ -57,8 +57,6 @@ class ShowLogsDialog extends React.Component {
     if (event.target.value.length >= 10) {
       this.setState({
         date: event.target.value
-      },()=>{
-        console.log(this.state.date)
       });
     }
   };
@@ -91,7 +89,7 @@ class ShowLogsDialog extends React.Component {
         }
       }
     );
-    console.log(response.data);
+    // console.log(response.data);
     if (response.data) {
       this.setState({
         logs: response.data.logs,
@@ -106,28 +104,35 @@ class ShowLogsDialog extends React.Component {
         : this.state.selectedFilter === filters.BY_HOURS
         ? this.state.hours.substr(0, 2)
         : "";
-    const response = await axios.post(
-      "http://localhost:5000/get-logs",
-      {
-        pageNumber : this.state.index,
-        filterLogType: this.props.logType,
-        filterType: this.state.selectedFilter,
-        filterValue: filterValue
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${this.props.token}`,
-          Accept: "application/json"
-        }
-      }
-    );
-    console.log(response.data);
-    if (response.data) {
+    if(this.state.index <= 0 ){
       this.setState({
-        logs: response.data.logs,
-        index : this.state.index - 1,
+        index : 1
       });
+    }else{
+      const response = await axios.post(
+        "http://localhost:5000/get-logs",
+        {
+          pageNumber : this.state.index,
+          filterLogType: this.props.logType,
+          filterType: this.state.selectedFilter,
+          filterValue: filterValue
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.props.token}`,
+            Accept: "application/json"
+          }
+        }
+      );
+      // console.log(response.data);
+      if (response.data) {
+        this.setState({
+          logs: response.data.logs,
+          index : this.state.index - 1,
+        });
+      }
     }
+    
   };
   handleClick = async () => {
     const filterValue =
@@ -151,7 +156,7 @@ class ShowLogsDialog extends React.Component {
         }
       }
     );
-    console.log(response.data);
+    // console.log(response.data);
     if (response.data) {
       this.setState({
         logs: response.data.logs
@@ -220,12 +225,12 @@ class ShowLogsDialog extends React.Component {
               onChange={this.handleDateChange}
               InputLabelProps={{ shrink: true }}
             />
-            <ButtonDialog
+            {this.state.index >=1 &&<ButtonDialog
               id="previous-logs-button-id"
               className={classes.navigationButton}
               onClick={this.handlePrevNavigation}
               component={<NavigationBeforeIcon />}
-            />
+            />}
             <ButtonDialog
               id="filter-logs-submit-button-id"
               variant="contained"
@@ -255,12 +260,13 @@ class ShowLogsDialog extends React.Component {
                 step: 300
               }}
             />
-            <ButtonDialog
+            { this.state.index>=1 && <ButtonDialog
               id="previous-logs-button-id"
               className={classes.navigationButton}
               onClick={this.handlePrevNavigation}
               component={<NavigationBeforeIcon />}
             />
+            }
             <ButtonDialog
               id="filter-logs-submit-button-id"
               variant="contained"
@@ -268,6 +274,7 @@ class ShowLogsDialog extends React.Component {
               onClick={this.handleClick}
               label="Filter"
             />
+
             <ButtonDialog
               id="next-logs-button-id"
               className={classes.navigationButton}

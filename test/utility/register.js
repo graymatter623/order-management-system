@@ -14,6 +14,6 @@ exports.register = async (driver,Credentials)=>{
     await driver.findElement(By.id("employee-password-id-02")).sendKeys(Credentials.employee_password);
     await driver.sleep(500);
     await triggerEvent(driver,"click", "#register-button-id");    
-    await driver.sleep(500);
+    await driver.sleep(1000);
     
 };

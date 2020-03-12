@@ -3,9 +3,9 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-// import CardHeader from '@material-ui/core/CardContent';
+import ButtonDialog from "./shared-components/ButtonDialog";
 import CardMedia from '@material-ui/core/CardMedia';
-import { Avatar, Typography,Button} from '@material-ui/core';
+import { Avatar, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import profileImage from '../res/admin-profile-image.png';
 import {Link} from 'react-router-dom';
@@ -53,15 +53,14 @@ const ProfileCard = ({owner})=>{
             </CardActionArea>
             <CardActions className={classes.actions}>
                 <Link to="/logout">
-                    <Button 
+                    <ButtonDialog
                         id="profile-card-logout-button-id"
                         variant="contained" 
                         className={classes.logoutButton} 
                         size="small" 
                         color="primary"
-                    >
-                        Logout
-                    </Button>
+                        label="Logout"
+                    />
                 </Link>
             </CardActions>            
         </Card>
