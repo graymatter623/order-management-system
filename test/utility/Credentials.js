@@ -1,10 +1,10 @@
 module.exports.Credentials = {
-    at01 : {
-        employee_name : "admin-shubham",
+    admin : {
+        employee_name : "shubham sarpenter",
         employee_username : "admin123",
         employee_password : "qwertyuiop"
     },
-    at02 : {
+    at01 : {
         employee_name : "test-name-001",
         employee_username : "test-username-001",
         employee_password : "test-password-001"
