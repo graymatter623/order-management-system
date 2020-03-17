@@ -12,6 +12,8 @@ import DashBoard from "../containers/DashBoard";
 import RegisterDialog from "./RegisterDialog";
 import Logout from "../containers/Logout";
 import {requestLogging,requestLoginLogs} from '../actions/actions';
+// import Loading from "./Loading";
+
 class App extends React.Component {
   componentDidUpdate(prevProps) {
     if(prevProps.location.pathname !== this.props.location.pathname){
@@ -38,10 +40,10 @@ class App extends React.Component {
   
   
   render() {
-    const { isOwner, isLoggedIn } = this.props;
+    const { isOwner, isLoggedIn} = this.props;
     return (
       <>
-        {!isLoggedIn ? <></> : <Redirect to="/dashboard" />}
+        {!isLoggedIn  ?  <></> : <Redirect to="/dashboard" />}
         <Switch>
           <Route exact 
             path="/" 
@@ -66,7 +68,8 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   employee : state.employeeLogin.employee,
   isLoggedIn: state.employeeLogin.isLoggedIn,
-  isOwner: state.employeeLogin.isOwner
+  isOwner: state.employeeLogin.isOwner,
+  // loading : state.employeeLogin.loading
 });
 const mapDispatchToProps = dispatch =>({
     requestLoginLogs : (data) => dispatch(requestLoginLogs(data)),

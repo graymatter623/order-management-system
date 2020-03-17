@@ -2,6 +2,7 @@ import React from "react";
 import ButtonDialog from "./shared-components/ButtonDialog";
 import { Link } from "react-router-dom";
 import { TextField, Typography, Grid, withStyles } from "@material-ui/core";
+import Loading from "./Loading";
 const styles = {
   root: {
     padding: "50px",
@@ -48,9 +49,6 @@ class LoginDialog extends React.Component {
         employee_username: this.state.employee_username,
         employee_password: this.state.employee_password
       });
-      if(this.props.isLoggedIn){
-        console.log('EEE');
-      }
     }
   };
   usernameValidate = () => {
@@ -89,7 +87,7 @@ class LoginDialog extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root} id="login-container-id">
+      !this.props.loading ? (<div className={classes.root} id="login-container-id">
         <Grid
           container
           direction="column"
@@ -160,7 +158,7 @@ class LoginDialog extends React.Component {
           </Grid>
           <Grid item>
             <Typography variant="body2">
-              Don't have an account
+              Don't have an account {" "}
               <Link
                 id="register-link-id"
                 to={{
@@ -173,7 +171,11 @@ class LoginDialog extends React.Component {
             </Typography>
           </Grid>
         </Grid>
-      </div>
+      </div>) : (
+        <>
+          <Loading/>
+        </>
+      )
     );
   }
 }

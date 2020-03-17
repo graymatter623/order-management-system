@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import {BACKURL} from '../constants/constants';
 class AssignOrderToEmployee extends React.Component {
   handleClick = async () => {
     await axios.get(
-      `http://localhost:5000/assign-order-to-employee/${this.props.match.params.orderId}/${this.props.match.params.employeeId}`,
+      `${BACKURL}assign-order-to-employee/${this.props.match.params.orderId}/${this.props.match.params.employeeId}`,
       {
         headers: {
           Authorization: `Bearer ${this.props.token}`,

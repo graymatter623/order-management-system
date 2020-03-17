@@ -10,7 +10,7 @@ import NavigationBeforeIcon from "@material-ui/icons/NavigateBefore";
 import ButtonDialog from "./shared-components/ButtonDialog";
 import { withStyles } from "@material-ui/core/styles";
 import ShowDataInTables from "./ShowDataInTables";
-
+import {BACKURL} from "../constants/constants"; 
 const filters = {
   SHOW_ALL: "SHOW_ALL",
   BY_WEEK: "BY_WEEK",
@@ -75,7 +75,7 @@ class ShowLogsDialog extends React.Component {
         ? this.state.hours.substr(0, 2)
         : "";
     const response = await axios.post(
-      "http://localhost:5000/get-logs",
+      `${BACKURL}get-logs`,
       {
         pageNumber : this.state.index,
         filterLogType: this.props.logType,
@@ -110,7 +110,7 @@ class ShowLogsDialog extends React.Component {
       });
     }else{
       const response = await axios.post(
-        "http://localhost:5000/get-logs",
+        `${BACKURL}get-logs`,
         {
           pageNumber : this.state.index,
           filterLogType: this.props.logType,
@@ -124,7 +124,6 @@ class ShowLogsDialog extends React.Component {
           }
         }
       );
-      // console.log(response.data);
       if (response.data) {
         this.setState({
           logs: response.data.logs,
@@ -142,7 +141,7 @@ class ShowLogsDialog extends React.Component {
         ? this.state.hours.substr(0, 2)
         : "";
     const response = await axios.post(
-      "http://localhost:5000/get-logs",
+      `${BACKURL}get-logs`,
       {
         pageNumber : 1,
         filterLogType: this.props.logType,

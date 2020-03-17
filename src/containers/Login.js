@@ -6,6 +6,7 @@ const mapDispatchToProps = (dispatch)=>({
     requestLoginLogs : (data) => dispatch(requestLoginLogs(data))
 });
 const mapStateToProps = (state)=>({
+    loading : state.employeeLogin.loading,
     isLoggedIn : state.employeeLogin.isLoggedIn,
     username : state.employeeLogin.employee.username
 });

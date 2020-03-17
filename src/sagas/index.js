@@ -3,17 +3,19 @@ import {
   REQUEST_LOGIN,
   REQUEST_EMPLOYEES_DATA,
   REQUEST_TODAY_ORDER,
+  REQUEST_LOG,
+  REQUEST_LOGIN_LOGS
+} from "../constants/constants";
+import { 
   responseLoginSuccess,
   responseEmployeesDataSuccess,
   responseTodayOrdersSuccess,
-  REQUEST_LOG,
-  REQUEST_LOGIN_LOGS
 } from "../actions/actions";
+import {BACKURL} from '../constants/constants';
 import axios from "axios";
 
-// eslint-disable-next-line
 function* requestLoginLogs (action) {
-  yield axios.post('http://localhost:5000/login-logs-route',action.data)
+  yield axios.post(`${BACKURL}login-logs-route`,action.data)
     .then(response=>response);
 }
 function* watchRequestLoginLogs(){
@@ -21,7 +23,7 @@ function* watchRequestLoginLogs(){
 }
 function* requestLogViewer(action) {
   yield axios
-    .post("http://localhost:5000/log-route", action.data)
+    .post(`${BACKURL}log-route`, action.data)
     .then(response => response);
 }
 function* watchRequestLogViewer() {
@@ -29,13 +31,13 @@ function* watchRequestLogViewer() {
 }
 function* fetchLoginDetails(action) {
   const response = yield axios
-    .post("http://localhost:5000/authenticate-login", action.data)
+    .post(`${BACKURL}authenticate-login`, action.data)
     .then(response => response);
   yield put(responseLoginSuccess(response.data));
 }
 function* fetchEmployeeData(action) {
   const response = yield axios
-    .get("http://localhost:5000/employees", {
+    .get(`${BACKURL}employees`, {
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${action.token}`
@@ -46,7 +48,7 @@ function* fetchEmployeeData(action) {
 }
 function* fetchTodayOrders(action) {
   const response = yield axios
-    .get("http://localhost:5000/get-today-orders", {
+    .get(`${BACKURL}get-today-orders`, {
       headers: {
         Authorization: `Bearer ${action.token}`,
         Accept: "application/json"

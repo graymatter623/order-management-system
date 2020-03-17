@@ -2,7 +2,7 @@ import {
     REQUEST_LOGIN,
     RESPONSE_LOGIN_SUCCESS,
     REQUEST_LOGOUT
-} from '../actions/actions.js';
+} from '../constants/constants';
 
 const initialState = {
     employee : {},

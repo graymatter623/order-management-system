@@ -8,14 +8,16 @@ import {
   Typography
 } from "@material-ui/core";
 import ButtonDialog from './shared-components/ButtonDialog';
+import { BACKURL } from "../constants/constants";
+import Loading from "./Loading";
 const styles = {
   root: {
-    padding: "50px",
+    padding: "25px 50px 50px 50px",
     margin: "auto",
     marginTop: "50px",
     flexGrow: 1,
     width: 400,
-    height: 400,
+    height: 430,
     border: "1px solid gray",
     borderRadius: "10px"
   },
@@ -26,6 +28,7 @@ const styles = {
     margin: "20px 60px"
   },
   warning : {
+    display : "hidden",
     color : "red"
   },
 };
@@ -42,59 +45,28 @@ class RegisterDialog extends React.Component {
       registrationSuccess : false,
       isUserAlreadyExist : false
     };
-  }
+  } 
   handleSubmit = () => {
     if (this.state.employee_username === "") {
       this.setState({
         isUsernameInvalid: true
       });
-    } else if (this.state.employee_password === "") {
+    }  if (this.state.employee_password === "") {
       this.setState({
         isPasswordInvalid: true
       });
-    } else if (this.state.employee_name === "") {
+    }  if (this.state.employee_name === "") {
       this.setState({
         isNameInvalid: true
       });
-    } else if (
-      this.state.employee_name === "" &&
-      this.state.employee_username === ""
-    ) {
-      this.setState({
-        isNameInvalid: true,
-        isUsernameInvalid: true
-      });
-    } else if (
-      this.state.employee_name === "" &&
-      this.state.employee_password === ""
-    ) {
-      this.setState({
-        isPasswordInvalid: true,
-        isnameInvalid: true
-      });
-    } else if (
-      this.state.employee_username === "" &&
-      this.state.employee_password === ""
-    ) {
-      this.setState({
-        isUsernameInvalid: true,
-        isPasswordInvalid: true
-      });
-    } else if (
-      this.state.employee_name === "" &&
-      this.state.employee_username === "" &&
-      this.state.employee_password === ""
-    ) {
-      this.setState({
-        isNameInvalid: true,
-        isUsernameInvalid: true,
-        isPasswordInvalid: true
-      });
-    } else {
+    } if(!this.state.isUsernameInvalid && !this.state.isNameInvalid && !this.state.isPasswordInvalid) {
       axios
-        .post("http://localhost:5000/register", this.state)
+        .post(`${BACKURL}register`,{
+          employee_name : this.state.employee_name,
+          employee_username : this.state.employee_username,
+          employee_password : this.state.employee_password
+        })
         .then(response => {
-          // console.log(response.data);
           if (response.data.success) {
              this.setState({
                registrationSuccess : response.data.success
@@ -108,28 +80,9 @@ class RegisterDialog extends React.Component {
     }
   };
   handleChange = event => {
-    if (event.target.name === "employee_username") {
-      this.setState(
-        {
-          employee_username: event.target.value
-        },
-        () => console.log(this.state.employee_username)
-      );
-    } else if (event.target.name === "employee_password") {
-      this.setState(
-        {
-          employee_password: event.target.value
-        },
-        () => console.log(this.state.employee_password)
-      );
-    } else {
-      this.setState(
-        {
-          employee_name: event.target.value
-        },
-        () => console.log(this.state.employee_name)
-      );
-    }
+    this.setState({
+      [event.target.name] : event.target.value
+    });
   };
   render() {
     const { classes } = this.props;
@@ -208,13 +161,13 @@ class RegisterDialog extends React.Component {
               />
             )}
           </Grid>
-          <Grid item>
               {this.state.isUserAlreadyExist && 
-                (<Typography variant="body1" component="p" className={classes.warning}>
-                  User Already Exist
-                </Typography>)
+                <Grid item>
+                  (<Typography variant="body1" component="p" className={classes.warning}>
+                    User Already Exist
+                  </Typography>)
+                </Grid>
               }
-          </Grid>
           <Grid item>
             <ButtonDialog
               id="register-button-id"
@@ -241,7 +194,10 @@ class RegisterDialog extends React.Component {
             </Typography>
           </Grid>       
         </Grid>
-      </div>) : <Redirect to="/" />
+      </div>) : <>
+          <Loading/>
+          <Redirect to="/" />
+        </>
     );
   }
 }

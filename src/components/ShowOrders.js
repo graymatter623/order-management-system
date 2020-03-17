@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import ShowOrderStatusDialog from "./ShowOrderStatusDialog";
 import {withStyles} from '@material-ui/core/styles';
 import Typography  from '@material-ui/core/Typography';
+import { BACKURL } from "../constants/constants";
 const styles = {
   container : {
     margin : "5px 10px"
@@ -19,7 +20,7 @@ class ShowOrders extends React.Component {
     };
   }
   async componentDidMount() {
-    const response = await axios.get("http://localhost:5000/get-orders", {
+    const response = await axios.get(`${BACKURL}get-orders`, {
       headers: {
         Authorization: `Bearer ${this.props.token}`,
         Accept: "application/json"

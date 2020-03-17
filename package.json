@@ -11,9 +11,8 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
-    "chromedriver": "^80.0.1",
+    "chromedriver": "^79.0.1",
     "mocha": "^7.1.0",
-    "nyc": "^15.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.2.0",
@@ -31,7 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "mocha --recursive --timeout 60000 --exit",
-    "coverage": "nyc mocha --timeout 60000 --exit",
+    "coverage": "nyc --reporter=text mocha --recursive --timeout 60000 --exit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -48,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "nyc": "^15.0.0"
   }
 }

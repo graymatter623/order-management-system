@@ -1,7 +1,7 @@
 import {
     REQUEST_EMPLOYEES_DATA,
     RESPONSE_EMPLOYEES_DATA_SUCCESS
-} from '../actions/actions.js';
+} from '../constants/constants';
 function employees(state = { employeesList : [] ,loading : false} , action){
     switch(action.type){
         case REQUEST_EMPLOYEES_DATA:

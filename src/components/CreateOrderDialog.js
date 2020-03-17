@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import {BACKURL} from '../constants/constants';
 class CreateOrderDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,7 @@ class CreateOrderDialog extends React.Component {
   };
   handleClick = async () => {
     const response = await axios.post(
-      "http://localhost:5000/create-order",
+      `${BACKURL}create-order`,
       {
         order_title: this.state.order_title,
         order_quantity: this.state.order_quantity

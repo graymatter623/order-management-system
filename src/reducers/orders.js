@@ -2,7 +2,7 @@ import {
     SELECT_ORDER,
     REQUEST_TODAY_ORDER,
     RESPONSE_TODAY_ORDER_SUCCESS
-} from '../actions/actions';
+} from '../constants/constants';
 
 function orders(state = { 
     orders : [],

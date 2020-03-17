@@ -1,0 +1,13 @@
+export const BACKURL = "https://order-management-web-app-08701.herokuapp.com/"; 
+// Request Actions
+export const REQUEST_LOGIN = 'REQUEST_LOGIN';
+export const REQUEST_TODAY_ORDER = 'REQUEST_TODAY_ORDER';
+export const REQUEST_EMPLOYEES_DATA = 'REQUEST_EMPLOYEES_DATA'; 
+export const SELECT_ORDER = 'SELECT_ORDER';
+export const REQUEST_LOGOUT = 'REQUEST_LOGOUT';
+export const REQUEST_LOG = 'REQUEST_LOG';
+export const REQUEST_LOGIN_LOGS = 'REQUEST_LOGIN_LOGS';
+// Response Actions 
+export const RESPONSE_EMPLOYEES_DATA_SUCCESS = 'RESPONSE_EMPLOYEES_DATA_SUCCESS';
+export const RESPONSE_TODAY_ORDER_SUCCESS = 'RESPONSE_TODAY_ORDER_SUCCESS';
+export const RESPONSE_LOGIN_SUCCESS = 'RESPONSE_LOGIN_SUCCESS';

@@ -1,12 +1,22 @@
-import React from 'react';
+import React from "react";
 // import { connect } from 'react-redux';
-import img from '../res/giphy.gif';
-let Loading = ()=>(
-    (
-        <div style = {{textAlign : 'center'}}>
-            <img src = {img} alt = "Loading..." style = {{width : "80px", height : "80px"}}/> <br/>
-            <h2> Loading...</h2>
-        </div>
-    ) 
-)
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles, Box } from "@material-ui/core";
+// import
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    margin : "auto"
+  }
+}));
+const Loading = () => {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <Box display="flex" justifyContent="center">
+        <CircularProgress color="secondary" />
+      </Box>
+    </div>
+  );
+};
 export default Loading;
