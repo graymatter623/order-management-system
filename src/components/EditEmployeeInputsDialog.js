@@ -50,6 +50,7 @@ class EditEmployeeInputsDialog extends React.Component {
       employee_name: "",
       employee_available: true,
       employeeId: this.props.match.params.employeeId,
+      // employeeId:this.props.employeeId,
       editSuccess : false
     };
   }

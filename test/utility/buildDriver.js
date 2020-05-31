@@ -1,4 +1,5 @@
 const { Builder } = require("selenium-webdriver");
+require('chromedriver');
 let driver = null;
 exports.buildDriver = async () => {
   if (!driver) {

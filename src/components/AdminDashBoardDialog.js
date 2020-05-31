@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
+
 import {
   Menu,
   MenuItem,
   AppBar,
   Toolbar,
   IconButton,
-  Divider,
+  Divider
   // Typography
 } from "@material-ui/core";
 import { SwipeableDrawer } from "@material-ui/core";
@@ -27,7 +28,7 @@ import ShowOrders from "./ShowOrders";
 import AssignOrderToEmployee from "./AssignOrderToEmployee";
 import Logout from "../containers/Logout";
 import ShowLogs from "../containers/ShowLogs";
-
+// import RouteNotFoundDialog from "./RouteNotFound";
 const styles = {
   links: {
     textDecoration: "none",
@@ -110,7 +111,7 @@ class AdminDashBoardDialog extends React.Component {
                   keepMounted
                   id="profile-menu"
                   anchorEl={this.state.anchorEl}
-                  open={Boolean(this.state.anchorEl)}
+                  open={ Boolean(this.state.anchorEl)}
                   onClose={this.handleClose}
                   onBlur={this.handleClose}
                 >
@@ -128,20 +129,29 @@ class AdminDashBoardDialog extends React.Component {
             onClose={this.setShouldDraw}
           >
             <Divider />
-            <SideList isAdmin={true} classes={classes} setShouldDraw={this.setShouldDraw} />
+            <SideList
+              isAdmin={true}
+              classes={classes}
+              setShouldDraw={this.setShouldDraw}
+            />
           </SwipeableDrawer>
-          
+
           {/* {  Routes } */}
           <Switch>
-            <Route 
-              exact 
-              path="/show-login-logs" 
-              children={ <ShowLogs logType="LOGIN"/>} />
-              
-            <Route 
-              exact 
-              path="/show-route-logs" 
-              children={<ShowLogs logType="ROUTE"/>}/>
+           {/* <Route 
+              component={RouteNotFoundDialog} 
+            />
+           */}
+           <Route
+              exact
+              path="/show-login-logs"
+              children={<ShowLogs logType="LOGIN" />}
+            />
+            <Route
+              exact
+              path="/show-route-logs"
+              children={<ShowLogs logType="ROUTE" />}
+            />
             <Route
               exact
               path="/search-employees"
@@ -209,7 +219,11 @@ class AdminDashBoardDialog extends React.Component {
               path="/assign-order-to-employee/:orderId/assigned-employee/:employeeId"
               component={AssignOrderToEmployee}
             />
-            <Route exact path="/logout" component={Logout} />
+            <Route 
+              exact 
+              path="/logout" 
+              component={Logout} 
+            />
           </Switch>
         </div>
       </BrowserRouter>

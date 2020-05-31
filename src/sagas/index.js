@@ -10,6 +10,7 @@ import {
   responseLoginSuccess,
   responseEmployeesDataSuccess,
   responseTodayOrdersSuccess,
+  responseLoginFailed,
 } from "../actions/actions";
 import {BACKURL} from '../constants/constants';
 import axios from "axios";
@@ -33,7 +34,11 @@ function* fetchLoginDetails(action) {
   const response = yield axios
     .post(`${BACKURL}authenticate-login`, action.data)
     .then(response => response);
-  yield put(responseLoginSuccess(response.data));
+  if(response.data.success && response.data.successValue === 1 ){
+    yield put(responseLoginSuccess(response.data));
+  }else{
+    yield put(responseLoginFailed());
+  }
 }
 function* fetchEmployeeData(action) {
   const response = yield axios

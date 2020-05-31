@@ -22,6 +22,10 @@ const styles = {
   },
   label: {
     margin: "0 45px"
+  },
+  error : {
+    marginTop: "20px",
+    color: "red"
   }
 };
 class LoginDialog extends React.Component {
@@ -31,7 +35,7 @@ class LoginDialog extends React.Component {
       employee_username: "",
       employee_password: "",
       isUsernameInvalid: false,
-      isPasswordInvalid: false
+      isPasswordInvalid: false,
     };
   }
   
@@ -87,7 +91,97 @@ class LoginDialog extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      !this.props.loading ? (<div className={classes.root} id="login-container-id">
+      this.props.loading ? (<div> <Loading /> </div>) : ( this.props.successValue === 2  ? (<div className={classes.root} id="login-container-id">
+        <Grid
+          container
+          direction="column"
+          justify="space-evenly"
+          alignItems="center"
+        >
+          <Grid item>
+            <Typography variant="h4" className={classes.label}>
+              LOG IN
+            </Typography>
+          </Grid>
+          <Grid item>
+            {!this.state.isUsernameInvalid ? (
+              <TextField
+                id="employee-username-id-01"
+                label="Username"
+                type="text"
+                name="employee_username"
+                onBlur={this.usernameValidate}
+                onChange={this.handleInputChange}
+              />
+            ) : (
+              <TextField
+                error
+                helperText="Username Required"
+                id="employee-username-id-01"
+                label="Username"
+                type="text"
+                name="employee_username"
+                onBlur={this.usernameValidate}
+                onChange={this.handleInputChange}
+              />
+            )}
+          </Grid>
+          <Grid item>
+            {!this.state.isPasswordInvalid ? (
+              <TextField
+                label="Password"
+                id="employee-password-id-01"
+                type="password"
+                name="employee_password"
+                onChange={this.handleInputChange}
+                onBlur={this.passwordValidate}
+              />
+            ) : (
+              <TextField
+                error
+                helperText="Password Required"
+                label="Password"
+                id="employee-password-id-01"
+                type="password"
+                name="employee_password"
+                onChange={this.handleInputChange}
+                onBlur={this.passwordValidate}
+              />
+            )}
+          </Grid>
+          <Grid item>
+            <Typography className={classes.error} variant="body2">
+              Username or Password is wrong
+            </Typography>
+          </Grid>
+          <Grid item>
+            <ButtonDialog
+              className={classes.loginButton}
+              color="primary"
+              variant="contained"
+              size="small"
+              id="login-button-id"
+              onClick={this.handleValidation}
+              label="Login"
+            />
+          </Grid>
+          <Grid item>
+            <Typography variant="body2">
+              Don't have an account {" "}
+              <Link
+                id="register-link-id"
+                to={{
+                  pathname: "/register",
+                  state: { from: this.props.location.pathname }
+                }}
+              >
+                Register
+              </Link>
+            </Typography>
+          </Grid>
+        </Grid>
+      </div>) : 
+        ( <div className={classes.root} id="login-container-id">
         <Grid
           container
           direction="column"
@@ -171,10 +265,7 @@ class LoginDialog extends React.Component {
             </Typography>
           </Grid>
         </Grid>
-      </div>) : (
-        <>
-          <Loading/>
-        </>
+      </div> ) 
       )
     );
   }

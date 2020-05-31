@@ -1,4 +1,5 @@
-export const BACKURL = "https://order-management-web-app-08701.herokuapp.com/"; 
+//export const BACKURL = "https://order-management-web-app-08701.herokuapp.com/"; 
+export const BACKURL = "http://localhost:5000/";
 // Request Actions
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const REQUEST_TODAY_ORDER = 'REQUEST_TODAY_ORDER';
@@ -11,3 +12,4 @@ export const REQUEST_LOGIN_LOGS = 'REQUEST_LOGIN_LOGS';
 export const RESPONSE_EMPLOYEES_DATA_SUCCESS = 'RESPONSE_EMPLOYEES_DATA_SUCCESS';
 export const RESPONSE_TODAY_ORDER_SUCCESS = 'RESPONSE_TODAY_ORDER_SUCCESS';
 export const RESPONSE_LOGIN_SUCCESS = 'RESPONSE_LOGIN_SUCCESS';
+export const RESPONSE_LOGIN_FAILED= "RESPONSE_LOGIN_FAILED";
